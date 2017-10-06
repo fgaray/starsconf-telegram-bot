@@ -54,7 +54,7 @@ an N number of process to build the dependencies. For example: stack -j 4 build.
 
 Just run in the console TOKEN=BOTID:YOUR-BOT-TOKEN ./starsconf-bot-exe
 
-*REMEMBER TO ADD your bot id to the token, it should be something like TOKEN=bot1234:a1b2c3d4...*
+**REMEMBER TO ADD your bot id to the token, it should be something like TOKEN=bot1234:a1b2c3d4...**
 
 If you compiled the binary from source using stack, you can run the binary
 using: TOKEN=BOTID:YOUR-BOT-TOKEN stack exec starsconf-bot-exe
@@ -67,3 +67,25 @@ file will be created
 
 This bots uses the Telegram's Keyboard to help the users to send commands to the bot.
 
+It provides two languages: English and Spanish. The bot gives the user this two
+options the first time.
+
+You can register to get notifications for the up comming talks, unregister, ask
+for next talks and ask for the current talks at that moment.
+
+## Examples
+
+Here are some examples of the responses given by the bot:
+
+![](https://github.com/fgaray/starsconf-telegram-bot/blob/master/images/Captura%20de%20pantalla%20de%202017-10-05%2022-07-49.png?raw=true)
+![](https://github.com/fgaray/starsconf-telegram-bot/blob/master/images/Captura%20de%20pantalla%20de%202017-10-05%2023-00-24.png?raw=true)
+![](https://github.com/fgaray/starsconf-telegram-bot/blob/master/images/Captura%20de%20pantalla%20de%202017-10-05%2023-00-35.png?raw=true)
+![](https://github.com/fgaray/starsconf-telegram-bot/blob/master/images/Captura%20de%20pantalla%20de%202017-10-05%2023-01-12.png?raw=true)
+
+
+# License
+
+
+[![GNU GPL v3.0](http://www.gnu.org/graphics/gplv3-127x51.png)](http://www.gnu.org/licenses/gpl.html)
+
+View official GNU site <http://www.gnu.org/licenses/gpl.html>.
