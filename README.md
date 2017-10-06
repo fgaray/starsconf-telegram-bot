@@ -1,6 +1,6 @@
 # StarsConf bot
 
-This is a bot for the [StarsConf 2017](www.starsconf.com). The
+This is a bot for the [StarsConf 2017](http://www.starsconf.com). The
 [challenge](https://medium.com/@SynapticSpa/construye-un-bot-para-la-starsconf-y-gana-una-entrada-d16cb0e24143)
 consists in building a bot to notify the registered users when a talk is going
 to start.
