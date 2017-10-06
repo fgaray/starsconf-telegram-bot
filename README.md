@@ -78,7 +78,6 @@ for next talks and ask for the current talks at that moment.
 Here are some examples of the responses given by the bot:
 
 ![](https://github.com/fgaray/starsconf-telegram-bot/blob/master/images/Captura%20de%20pantalla%20de%202017-10-05%2022-07-49.png?raw=true)
-![](https://github.com/fgaray/starsconf-telegram-bot/blob/master/images/Captura%20de%20pantalla%20de%202017-10-05%2023-00-24.png?raw=true)
 ![](https://github.com/fgaray/starsconf-telegram-bot/blob/master/images/Captura%20de%20pantalla%20de%202017-10-05%2023-00-35.png?raw=true)
 ![](https://github.com/fgaray/starsconf-telegram-bot/blob/master/images/Captura%20de%20pantalla%20de%202017-10-05%2023-01-12.png?raw=true)
 
