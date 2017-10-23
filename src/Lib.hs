@@ -39,8 +39,7 @@ botMain = do
     migrate
     token <- Token . T.pack <$> getEnv "TOKEN"
     manager <- newManager tlsManagerSettings
-    putStrLn "Updating talks..."
-    updateAPI
+    forkIO $ updateDB
     putStrLn "Starting notify thread..."
     forkIO $ void $ runClient (notifyThread manager) token manager
     putStrLn "Running"
@@ -88,3 +87,11 @@ notifyThread manager = forever $ do
 
 
     liftIO $ threadDelay 3000000
+
+
+updateDB :: IO ()
+updateDB = forever $ do
+    print "Updating Talks"
+    updateAPI
+    print "Updated"
+    liftIO $ threadDelay 60000000

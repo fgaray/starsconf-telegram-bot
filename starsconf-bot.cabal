@@ -43,7 +43,8 @@ library
                        servant,
                        servant-client,
                        wai,
-                       warp
+                       warp,
+                       filelock
   default-language:    Haskell2010
 
 executable starsconf-bot-exe

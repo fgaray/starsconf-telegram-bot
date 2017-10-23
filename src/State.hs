@@ -75,7 +75,6 @@ nextState user Main (Just K.CurrentTalks) = do
     let talksTxt = foldl (\acc t -> acc <> buildTalkText (entity t) english M.NoTalksNow <> "\n\n") "" talks
     return (Main, K.main notify, M.CurrentTalks talksTxt)
 
-
 nextState user state btn = do
     liftIO $ putStrLn $ "Other: " ++ show state ++ " " ++ show btn
     notify <- DB.isNotifiy user

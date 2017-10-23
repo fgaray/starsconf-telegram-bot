@@ -40,6 +40,7 @@ import Data.Time.Format (parseTimeM, iso8601DateFormat, defaultTimeLocale)
 import Data.Time.LocalTime (TimeOfDay, LocalTime(..))
 import Data.Time.Calendar (Day)
 import Types
+import System.FileLock
 
 -- Types for the DB
 
@@ -112,7 +113,11 @@ TalkDB
 
 
 runDB :: ReaderT SqlBackend (NoLoggingT (ResourceT IO)) a -> IO a
-runDB = runSqlite "stars-conf.sqlite3"
+runDB query = do
+    lock <- lockFile "lock" Exclusive
+    x <- runSqlite "stars-conf.sqlite3" query
+    unlockFile lock
+    return x
 
 migrate = runDB $ runMigration migrateAll
 
