@@ -111,7 +111,8 @@ buildTalkText (Just (talk, speaker, category), room) english _ =
     T.pack (show room) <>
     ":\n↳" <> talkDBName talk <>
     speakerName <>
-    "\n⏰ " <> (T.pack . show $ talkDBStart talk) <>" - " <> (T.pack . show $ talkDBEnd talk) <> ", total: " <> (T.pack . show $ diffMinutes) <> 
+    "\n⏰ " <> (T.pack . formatTime defaultTimeLocale "%R" $ talkDBStart talk) <>" - " <> 
+    (T.pack . formatTime defaultTimeLocale "%R" $ talkDBEnd talk) <> ", total: " <> (T.pack . formatTime defaultTimeLocale "%R" $ diffMinutes) <> 
     categoryTxt
     where
         diffMinutes = timeToTimeOfDay (secondsEnd - secondsStart)
