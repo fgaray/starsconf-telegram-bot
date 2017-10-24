@@ -16,6 +16,7 @@ data Button =
     | DisableNotification
     | NextTalks
     | CurrentTalks
+    | Help
     deriving Show
 
 
@@ -30,18 +31,29 @@ buttonToText DisableNotification True = "Disable Notifications"
 buttonToText DisableNotification False = "Desactivar Notificaciones"
 buttonToText CurrentTalks True = "🔥 Now"
 buttonToText CurrentTalks False = "🔥 Ahora"
+buttonToText Help True = "ℹ️ Help"
+buttonToText Help False = "ℹ️ Ayuda"
 
 textToButton :: Text -> Maybe Button
 textToButton "Start (English)" = Just StartEnglish
 textToButton "Comenzar (Spanish)" = Just StartSpanish
+textToButton "/english" = Just StartEnglish
+textToButton "/spanish" = Just StartSpanish
 textToButton "Activate Notification" = Just Notification
 textToButton "Activar Notificaciones" = Just Notification
+textToButton "/notify" = Just Notification
 textToButton "➡️ Next" = Just NextTalks
 textToButton "➡️ Siguientes" = Just NextTalks
+textToButton "/next" = Just NextTalks
 textToButton "Disable Notifications" = Just DisableNotification
 textToButton "Desactivar Notificaciones" = Just DisableNotification
+textToButton "/disable" = Just DisableNotification
 textToButton "🔥 Now" = Just CurrentTalks
 textToButton "🔥 Ahora" = Just CurrentTalks
+textToButton "/now" = Just CurrentTalks
+textToButton "ℹ️ Help" = Just Help
+textToButton "ℹ️ Ayuda" = Just Help
+textToButton "/help" = Just Help
 textToButton _ = Nothing
 
 
@@ -67,7 +79,7 @@ init = ReplyKeyboardMarkup (map (map (mkB False)) button) Nothing (Just True) No
 
 
 main :: Bool-> Bool -> ReplyKeyboard
-main activated = mkKeyboard [[ f activated, NextTalks, CurrentTalks ]]
+main activated = mkKeyboard [[ f activated, NextTalks, CurrentTalks, Help ]]
     where
         f True = DisableNotification
         f False = Notification

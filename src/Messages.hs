@@ -3,6 +3,7 @@ module Messages where
 
 
 import Data.Text (Text)
+import qualified Data.Text as T
 import Data.Monoid
 
 data Message =
@@ -16,6 +17,7 @@ data Message =
     | NoTalks
     | NoTalksNow
     | Notify Text
+    | Help
 
 
 
@@ -39,3 +41,31 @@ messageToText (Notify talks) True = "🔜 Up next:\n" <> talks
 messageToText (Notify talks) False = "🔜 A continuación:\n" <> talks
 messageToText NotificacionDeactivated True = "Notificacion deactivated: You will no longer be notified about next talks of the conference"
 messageToText NotificacionDeactivated False = "Notificaciones desactivadas: No serás notificado de las charlas en la conferencia"
+messageToText Help True = T.unlines [
+      "We recommend that you use the keyboard instead of this commands!"
+    , "Commands:"
+    , "/start: Initialize the bot"
+    , "/english: Change the language to English"
+    , "/spanish: Change the language to Spanish"
+    , "/notify: Activates the notification of the talks"
+    , "/next: Shows the next talks"
+    , "/disable: Disable the notification of the talks"
+    , "/now: Shows the talks in this moment"
+    , "/help: Shows this help"
+    , ""
+    , "This bot was created by Felipe Garay (felipe@fgaray.cl) for the StarsConf"
+    ]
+messageToText Help False = T.unlines [
+      "Te recomendamos que uses los botones del bot en vez de estos comandos!"
+    , "Comandos:"
+    , "/start: Inicia el bot"
+    , "/english: Cambia el idioma a Inglés"
+    , "/spanish: Cambia el idioma a Español"
+    , "/notify: Activa la notificación de las charlas"
+    , "/next: Muestra las siguientes charlas"
+    , "/disable: Desactiva las notificaciones de las charlas"
+    , "/now: Muestra las charlas en este momento"
+    , "/help: Muestra esta ayuda"
+    , ""
+    , "Este bot fue creado por Felipe Garay (felipe@fgaray.cl) para la StarsConf"
+    ]

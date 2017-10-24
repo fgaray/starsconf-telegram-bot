@@ -50,6 +50,10 @@ nextState user Main (Just K.DisableNotification) = do
     notify <- DB.isNotifiy user
     return (Main, K.main notify, M.NotificacionDeactivated)
 
+nextState user Main (Just K.Help) = do
+    notify <- DB.isNotifiy user
+    return (Main, K.main notify, M.Help)
+
 nextState user Main (Just K.NextTalks) = do
     english <- DB.getEnglish user
     notify <- DB.isNotifiy user
