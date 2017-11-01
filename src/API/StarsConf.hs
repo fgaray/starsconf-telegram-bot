@@ -1,8 +1,9 @@
-    {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 module API.StarsConf where
 
 
@@ -19,16 +20,42 @@ import Network.HTTP.Client (Manager, newManager)
 import Network.HTTP.Client.TLS (tlsManagerSettings)
 import Database.Persist.TH (derivePersistField)
 import Data.Aeson.TH
+import Data.Aeson
 import Utils
+import qualified Text.Read.Lex as L
+import GHC.Read
+import Text.ParserCombinators.ReadPrec (pfail)
 
 
 data TalkRoom =
-      DOS
+      FRESNO
+    | MAGNA
+    | MATTE
+    | COLORADA
     | A_
-    | PRINCIPAL
-    | CHICA
-    | TALLERES
-    deriving (Show, Read, Eq, Enum, Bounded)
+    | B_
+    deriving (Eq, Enum, Bounded)
+
+instance Show TalkRoom where
+    show FRESNO = "Fresno"
+    show MAGNA = "Magna"
+    show MATTE = "Matte"
+    show COLORADA = "Colorada"
+    show A_ = "A_"
+    show B_ = "_"
+
+instance Read TalkRoom where
+    readPrec = parens $ do
+        L.Ident s <- lexP
+        case s of
+            "Fresno"   -> return FRESNO
+            "Magna"    -> return MAGNA
+            "Matte"    -> return MATTE
+            "Colorada" -> return COLORADA
+            "A_"       -> return A_
+            "_"        -> return B_
+            _          -> pfail
+
 $(derivePersistField "TalkRoom")
 
 
@@ -82,15 +109,24 @@ data ResponseAPI a = ResponseAPI
 $(deriveJSON defaultOptions ''Talks)
 $(deriveJSON defaultOptions ''Speakers)
 $(deriveJSON defaultOptions ''TimeSlots)
-$(deriveJSON defaultOptions ''TalkRoom)
 $(deriveJSON defaultOptions { fieldLabelModifier = stripPrefixJSON "speaker"}  ''Speaker)
 $(deriveJSON defaultOptions { fieldLabelModifier = stripPrefixJSON "timeSlot"}  ''TimeSlot)
 $(deriveJSON defaultOptions { fieldLabelModifier = stripPrefixJSON "talk"}  ''Talk)
 $(deriveJSON defaultOptions { fieldLabelModifier = stripPrefixJSON "responseAPI"}  ''ResponseAPI)
 
 
+instance FromJSON TalkRoom where
+    parseJSON = withText "TalkRoom" $ \s ->
+        case s of
+            "FRESNO" -> return FRESNO
+            "MAGNA" -> return MAGNA
+            "MATTE" -> return MATTE
+            "COLORADA" -> return COLORADA
+            "A_" -> return A_
+            "_" -> return B_
+            _ -> fail "Can't parse TalkRoom"
 
-
+$(deriveToJSON defaultOptions ''TalkRoom)
 
 -- API
 ------------------------------------
